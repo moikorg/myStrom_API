@@ -4,10 +4,6 @@ import requests
 from sys import exit
 import pprint
 
-# r = requests.get('https://api.github.com/events')
-# print(r)
-# print(r.text)
-
 uname = 'xx.org'
 passwd = 'xxx'
 # auth_data = json.dumps({'email':uname, 'password':passwd})
