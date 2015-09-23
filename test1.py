@@ -5,16 +5,6 @@ from sys import exit
 import pprint
 import ConfigParser
 
-<<<<<<< HEAD
-uname = 'xx.org'
-passwd = 'xxx'
-# auth_data = json.dumps({'email':uname, 'password':passwd})
-=======
-# r = requests.get('https://api.github.com/events')
-# print(r)
-# print(r.text)
-
->>>>>>> feature/configFiles
 
 def ConfigSectionMap(section):
     dict1 = {}
