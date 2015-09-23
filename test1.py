@@ -24,13 +24,10 @@ def ConfigSectionMap(section):
     return dict1
 
 
+# get the config data from the config file
 config = ConfigParser.ConfigParser()
 config.read('./config.rc')
 
-uname = 'mike@moik.org'
-passwd = 'xxx'
-
-# get the config data from the config file
 uname = ConfigSectionMap("Credentials")['username']
 passwd = ConfigSectionMap("Credentials")['password']
 myStrom_url = ConfigSectionMap("MyStrom")['baseurl']
