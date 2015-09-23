@@ -3,12 +3,41 @@
 import requests
 from sys import exit
 import pprint
+import ConfigParser
 
+<<<<<<< HEAD
 uname = 'xx.org'
 passwd = 'xxx'
 # auth_data = json.dumps({'email':uname, 'password':passwd})
+=======
+# r = requests.get('https://api.github.com/events')
+# print(r)
+# print(r.text)
 
-myStrom_url = 'https://mystrom.ch/mobile/'
+>>>>>>> feature/configFiles
+
+def ConfigSectionMap(section):
+    dict1 = {}
+    options = config.options(section)
+    for option in options:
+        try:
+            dict1[option] = config.get(section, option)
+            if dict1[option] == -1:
+                print("skip: %s" % option)
+        except:
+            print("exception on %s!" % option)
+            dict1[option] = None
+    return dict1
+
+
+# get the config data from the config file
+config = ConfigParser.ConfigParser()
+config.read('./config.rc')
+
+uname = ConfigSectionMap("Credentials")['username']
+passwd = ConfigSectionMap("Credentials")['password']
+myStrom_url = ConfigSectionMap("MyStrom")['baseurl']
+
 
 auth_url = myStrom_url + 'auth?email={eMail}&password={password}'.format(eMail=uname, password=passwd)
 r = requests.get(auth_url)
@@ -45,3 +74,5 @@ if r.json()['status'] != 'ok':
     print "Error getting the list"
     exit(1)
 print r.json()
+
+
