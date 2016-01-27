@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/usr/bin/env python3
+=======
+#!/usr/local/bin/python3
+>>>>>>> 13161859dc466d627162c702544f872ce609b053
 
 import requests
 from sys import exit
@@ -47,17 +51,19 @@ authToken = r_json['authToken']
 
 # get the device list
 url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='devices', token=authToken)
+print (url_getStatus)
 r = requests.get(url_getStatus)
 if r.json()['status'] != 'ok':
     print ("Error getting the list")
     exit(1)
 
 pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(r.json())
+#pp.pprint(r.json())
 
+# get a list of connected devices
 for myobject in r.json()['devices']:
-    if myobject['name'] == 'Raspberry Pi':
-        print (myobject)
+    if myobject['name'] != '':
+        print (myobject['name'], myobject['id'])
 
 # get the weather
 url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='weather', token=authToken)
@@ -67,4 +73,29 @@ if r.json()['status'] != 'ok':
     exit(1)
 print (r.json())
 
+# get the profile
+url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='profile', token=authToken)
+r = requests.get(url_getStatus)
+if r.json()['status'] != 'ok':
+    print ("Error getting the list")
+    exit(1)
+print (r.json())
 
+
+# upgrade device
+url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='device/firmware/upgrade', token=authToken)
+r = requests.post(url_getStatus, data = {'id': '0013C1232E4A'})
+if r.json()['status'] != 'ok':
+    print ("Error updating")
+print (r.json())
+
+
+# # switch a device to on/off
+# # /mobile/device/switch
+# url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='device/switch', token=authToken)
+# r = requests.post(url_getStatus, data = {'id': '0013C121EE93', 'on': 'True'})
+# if r.json()['status'] != 'ok':
+#     print ("Error switching the device")
+#     print (r.json())
+#     exit(1)
+# print (r.json())
