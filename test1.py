@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 #!/usr/bin/env python3
-=======
-#!/usr/local/bin/python3
->>>>>>> 13161859dc466d627162c702544f872ce609b053
 
 import requests
 from sys import exit
