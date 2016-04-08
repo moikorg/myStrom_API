@@ -48,23 +48,23 @@ if r.json()['status'] != 'ok':
     print ("Error getting the list")
     exit(1)
 
-pp = pprint.PrettyPrinter(indent=4)
-#pp.pprint(r.json())
+# pp = pprint.PrettyPrinter(indent=4)
+# pp.pprint(r.json())
 
 # get a list of connected devices
 for myobject in r.json()['devices']:
     if myobject['name'] != '':
         if myobject['name'] == "Printer":
             printerID = myobject['id']
-           # print (myobject['name'], myobject['id'])
-
-
+            # print (myobject['name'], myobject['id'])
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def hello():
     return "Hello World!"
+
 
 @app.route("/printer")
 def print_status():
@@ -72,7 +72,7 @@ def print_status():
 
     # /mobile/device/switch
     url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='device/switch', token=authToken)
-    r = requests.post(url_getStatus, data = {'id': printerID, 'on': 'True'})
+    r = requests.post(url_getStatus, data={'id': printerID, 'on': 'True'})
     if r.json()['status'] != 'ok':
         return "Error switching the device" + r.json()
     print (r.json())
@@ -81,4 +81,5 @@ def print_status():
 
 
 if __name__ == "__main__":
-    app.run()
+    # run it on port 5001
+    app.run(port=5001)
