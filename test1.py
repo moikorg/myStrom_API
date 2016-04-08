@@ -56,10 +56,11 @@ if r.json()['status'] != 'ok':
 pp = pprint.PrettyPrinter(indent=4)
 #pp.pprint(r.json())
 
-# get a list of connected devices
+# get a list of connected devices and pick the printer ID
 for myobject in r.json()['devices']:
     if myobject['name'] != '':
-        print (myobject['name'], myobject['id'])
+        if myobject['name'] == "Printer":
+            print (myobject['name'], myobject['id'])
 
 # get the weather
 url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='weather', token=authToken)
