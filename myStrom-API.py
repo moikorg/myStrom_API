@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import configparser
 from flask import Flask
 import requests
@@ -42,7 +44,7 @@ authToken = r_json['authToken']
 
 # get the device list
 url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='devices', token=authToken)
-print (url_getStatus)
+#print (url_getStatus)
 r = requests.get(url_getStatus)
 if r.json()['status'] != 'ok':
     print ("Error getting the list")
