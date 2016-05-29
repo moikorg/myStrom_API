@@ -65,7 +65,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Hello World!<br>This is the myStrom API root"
 
 
 @app.route("/printer")
