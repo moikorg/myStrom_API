@@ -22,7 +22,7 @@ def configSectionMap(section):
 
 # get the config data from the config file
 config = configparser.ConfigParser()
-config.read('./config.rc')
+config.read('/root/bin/myStrom_API/config.rc')
 
 uname = configSectionMap("Credentials")['username']
 passwd = configSectionMap("Credentials")['password']
@@ -67,7 +67,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Hello World!<br>This is the myStrom API root"
 
 
 @app.route("/printer")
