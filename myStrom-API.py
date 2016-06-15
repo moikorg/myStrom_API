@@ -58,7 +58,9 @@ for myobject in r.json()['devices']:
     if myobject['name'] != '':
         if myobject['name'] == "Printer":
             printerID = myobject['id']
-            # print (myobject['name'], myobject['id'])
+        elif myobject['name'] == "Anti Vol Stube":
+            antiVolID = myobject['id']
+            print (myobject['name'], myobject['id'])
 
 app = Flask(__name__)
 
@@ -80,6 +82,18 @@ def print_status():
     print (r.json())
 
     return "Printer turned on"
+
+@app.route("/light")
+def ligth_toggle():
+
+    url_post_light = myStrom_url + '{method}?authToken={token}'.format(method='device/switch', token=authToken)
+    # toggle the light to off
+    r = requests.post(url_post_light, data={'id': antiVolID, 'action': 'toggle'})
+    if r.json()['status'] != 'ok':
+        return "Error switching the device" + r.json()
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(r.json())
+    return ("okay")
 
 
 if __name__ == "__main__":
