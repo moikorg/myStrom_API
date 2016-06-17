@@ -91,8 +91,8 @@ def ligth_toggle():
     r = requests.post(url_post_light, data={'id': antiVolID, 'action': 'toggle'})
     if r.json()['status'] != 'ok':
         return "Error switching the device" + r.json()
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(r.json())
+#    pp = pprint.PrettyPrinter(indent=4)
+#    pp.pprint(r.json())
     return ("okay")
 
 
