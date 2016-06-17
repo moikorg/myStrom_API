@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import configparser
 from flask import Flask
 import requests
@@ -20,7 +22,7 @@ def configSectionMap(section):
 
 # get the config data from the config file
 config = configparser.ConfigParser()
-config.read('./config.rc')
+config.read('/root/bin/myStrom_API/config.rc')
 
 uname = configSectionMap("Credentials")['username']
 passwd = configSectionMap("Credentials")['password']
@@ -42,7 +44,7 @@ authToken = r_json['authToken']
 
 # get the device list
 url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='devices', token=authToken)
-print (url_getStatus)
+#print (url_getStatus)
 r = requests.get(url_getStatus)
 if r.json()['status'] != 'ok':
     print ("Error getting the list")
@@ -56,14 +58,16 @@ for myobject in r.json()['devices']:
     if myobject['name'] != '':
         if myobject['name'] == "Printer":
             printerID = myobject['id']
-            # print (myobject['name'], myobject['id'])
+        elif myobject['name'] == "Anti Vol Stube":
+            antiVolID = myobject['id']
+            print (myobject['name'], myobject['id'])
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Hello World!<br>This is the myStrom API root"
 
 
 @app.route("/printer")
@@ -78,6 +82,18 @@ def print_status():
     print (r.json())
 
     return "Printer turned on"
+
+@app.route("/light")
+def ligth_toggle():
+
+    url_post_light = myStrom_url + '{method}?authToken={token}'.format(method='device/switch', token=authToken)
+    # toggle the light to off
+    r = requests.post(url_post_light, data={'id': antiVolID, 'action': 'toggle'})
+    if r.json()['status'] != 'ok':
+        return "Error switching the device" + r.json()
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(r.json())
+    return ("okay")
 
 
 if __name__ == "__main__":
