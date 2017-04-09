@@ -58,7 +58,7 @@ for myobject in r.json()['devices']:
     if myobject['name'] != '':
         if myobject['name'] == "Printer":
             printerID = myobject['id']
-        elif myobject['name'] == "Anti Vol Stube":
+        elif myobject['name'] == "ANTI Vol unten":
             antiVolID = myobject['id']
             print (myobject['name'], myobject['id'])
 
