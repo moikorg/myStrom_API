@@ -22,7 +22,8 @@ def configSectionMap(section):
 
 # get the config data from the config file
 config = configparser.ConfigParser()
-config.read('/root/bin/myStrom_API/config.rc')
+#config.read('/root/bin/myStrom_API/config.rc')
+config.read('config.rc')
 
 uname = configSectionMap("Credentials")['username']
 passwd = configSectionMap("Credentials")['password']
@@ -78,7 +79,7 @@ def print_status():
     url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='device/switch', token=authToken)
     r = requests.post(url_getStatus, data={'id': printerID, 'on': 'True'})
     if r.json()['status'] != 'ok':
-        return "Error switching the device" + r.json()
+        return "Error switching the device: Printer"
     print (r.json())
 
     return "Printer turned on"
