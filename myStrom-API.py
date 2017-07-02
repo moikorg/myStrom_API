@@ -22,7 +22,8 @@ def configSectionMap(section):
 
 # get the config data from the config file
 config = configparser.ConfigParser()
-config.read('/root/bin/myStrom_API/config.rc')
+#config.read('/root/bin/myStrom_API/config.rc')
+config.read('config.rc')
 
 uname = configSectionMap("Credentials")['username']
 passwd = configSectionMap("Credentials")['password']
