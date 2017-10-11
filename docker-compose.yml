@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  web:
+    build: .
+    command: python3 myStrom-API.py 
+    ports:
+      - "5001:5001"
+    volumes:
+      - /home/pirate/docker-mystrom/code:/code
+    restart: always
