@@ -8,5 +8,6 @@ services:
     ports:
       - "5001:5001"
     volumes:
-      - /home/mike/docker/myStrom_API/code:/code
+      - ./code:/code
     restart: always
+    container_name: "myStrom"
