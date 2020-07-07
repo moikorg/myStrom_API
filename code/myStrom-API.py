@@ -61,7 +61,7 @@ for myobject in r.json()['devices']:
             printerID = myobject['id']
         elif myobject['name'] == "Anker":
             antiVolID = myobject['id']
-            print (myobject['name'], myobject['id'])
+    print (myobject['name'], myobject['id'])
 
 app = Flask(__name__)
 
@@ -79,7 +79,9 @@ def print_status():
     url_getStatus = myStrom_url + '{method}?authToken={token}'.format(method='device/switch', token=authToken)
     r = requests.post(url_getStatus, data={'id': printerID, 'on': 'True'})
     if r.json()['status'] != 'ok':
-        return "Error switching the device: Printer"
+         ret_str = "PrinterID: " + printerID +"\n"
+         ret_str += "Error switching the device: Printer"
+         return ret_str
     print (r.json())
 
     return "Printer turned on"
